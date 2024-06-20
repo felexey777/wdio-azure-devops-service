@@ -27,10 +27,10 @@ export default class AzureDevopsService implements Services.ServiceInstance {
   }
 
   async afterTest(test: Test, context: any, result: TestResult): Promise<void> {
-    let caseId = this.parseCaseIDString(test.parent)
+    let caseId = this.parseCaseIDString(test.parent || test.description)
 
     if (caseId == 'notDefined') {
-      caseId = this.parseCaseIDString(test.title)
+      caseId = this.parseCaseIDString(test.title || test.description)
       if (caseId == 'notDefined') {
         return new Promise((resolve) => {
           resolve()
